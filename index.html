@@ -26,9 +26,7 @@
       --bs-red: #df6a4a;
       --bs-gold: #f4c768;
       --bs-shell: #d9caa5;
-      --container: 1240px;
-      --radius-xl: 32px;
-      --radius-lg: 22px;
+      --container: 1240px; 
       --radius-md: 16px;
     }
 
@@ -1175,9 +1173,9 @@
         grid-template-columns: repeat(2, minmax(0, 1fr));
       }
       .hero-inner { grid-template-columns: minmax(0, 1fr) minmax(260px, 0.9fr); gap: 24px; }
-      .hero-gallery { grid-template-columns: 1fr; }
+      .hero-gallery { grid-template-columns: 1fr; min-height: 112svh; }
       .hero-art { top: 92px; height: min(56vh, 500px); min-height: 320px; }
-      .hero-product-step { min-height: 52vh; }
+      .hero-product-step { min-height: 28svh; }
       .story-wrap, .gift-panel { grid-template-columns: 1fr; }
       .featured-layout { grid-template-columns: minmax(220px, 0.9fr) minmax(240px, 1.1fr); }
     }
@@ -1199,10 +1197,15 @@
       .hero { padding-top: 28px; }
       .hero-inner { display: block; }
       .hero-copy { position: relative; top: auto; padding-top: 12px; }
-      .hero-gallery { min-height: 188svh; }
+      .hero-gallery { min-height: 96svh; }
       .hero-actions { flex-direction: column; align-items: stretch; }
       .hero .secondary-btn, .hero .primary-btn { width: 100%; }
-      .product-grid, .portal-grid, .why-wrap, .reviews-wrap, .footer-grid { grid-template-columns: 1fr; }
+      .product-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+      .product-visual { height: 160px; padding: 10px; }
+      .product-info { padding: 12px; }
+      .product-card h3 { font-size: 1.05rem; }
+      .product-grid .badge { padding: 0.35rem 0.5rem; font-size: 0.58rem; }
+      .portal-grid, .why-wrap, .reviews-wrap, .footer-grid { grid-template-columns: 1fr; }
       .featured-layout { grid-template-columns: 1fr; padding: 18px; }
       .hero-gallery { grid-template-columns: 1fr; gap: 0; }
       .hero-art {
@@ -1213,7 +1216,7 @@
         min-height: 250px;
       }
       .hero-product-step {
-        min-height: 48svh;
+        min-height: 24svh;
       }
       .fact-grid { grid-template-columns: 1fr; }
       .section-header { align-items: start; flex-direction: column; }
@@ -1229,9 +1232,238 @@
       }
       .js-ready .reveal { opacity: 1; transform: none; }
     }
+
+    .bonsnack-intro {
+      position: fixed;
+      inset: 0;
+      z-index: 9999;
+      display: none;
+      place-items: center;
+      overflow: hidden;
+      background: #0F3B32;
+      touch-action: manipulation;
+      will-change: transform;
+    }
+    .bonsnack-intro-active .bonsnack-intro { display: grid; }
+    .bonsnack-intro__clip {
+      display: grid;
+      place-items: center;
+      width: min(280px, 70vw);
+      max-width: 70vw;
+      overflow: hidden;
+    }
+    .bonsnack-intro__brand {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: clamp(12px, 2vw, 20px);
+      width: 100%;
+      color: #F7F5EF;
+      font: 500 clamp(1.1rem, 3.4vw, 1.8rem)/1 "Space Grotesk", sans-serif;
+      letter-spacing: 0.14em;
+      white-space: nowrap;
+    }
+    .bonsnack-intro__logo {
+      display: block;
+      flex: 0 0 auto;
+      width: clamp(48px, 8vw, 72px);
+      height: clamp(48px, 8vw, 72px);
+      object-fit: contain;
+      border-radius: 10px;
+    }
+    .bonsnack-intro__skip {
+      position: absolute;
+      right: max(20px, env(safe-area-inset-right));
+      bottom: max(16px, env(safe-area-inset-bottom));
+      min-width: 44px;
+      min-height: 44px;
+      padding: 10px 12px;
+      border: 0;
+      background: transparent;
+      color: #F7F5EF;
+      font: inherit;
+      font-size: 0.875rem;
+      opacity: 0.78;
+      cursor: pointer;
+    }
+    .bonsnack-intro__skip:hover { opacity: 1; }
+    @media (max-width: 380px) {
+      .bonsnack-intro__brand {
+        flex-direction: column;
+        gap: 10px;
+        font-size: clamp(1rem, 3.8vw, 1.25rem);
+      }
+    }
+    .bonsnack-intro__skip:focus-visible {
+      outline: 2px solid #F7F5EF;
+      outline-offset: 3px;
+    }
   </style>
+  <script>
+    (function () {
+      var state = window.__bonsnackIntroState = { eligible: false, ready: false, failed: false };
+      if (window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+      state.eligible = true;
+
+      var script = document.createElement("script");
+      script.async = true;
+      script.src = "https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js";
+      script.onload = function () {
+        state.ready = Boolean(window.gsap && typeof window.gsap.timeline === "function");
+        state.failed = !state.ready;
+        document.dispatchEvent(new Event("bonsnack:gsap-ready"));
+      };
+      script.onerror = function () {
+        state.failed = true;
+        document.dispatchEvent(new Event("bonsnack:gsap-ready"));
+      };
+      try {
+        document.head.appendChild(script);
+      } catch (error) {
+        state.failed = true;
+        console.error("BONSNACK intro could not load GSAP.", error);
+      }
+    }());
+  </script>
 </head>
 <body>
+  <div class="bonsnack-intro">
+    <div class="bonsnack-intro__clip" aria-hidden="true">
+      <div class="bonsnack-intro__brand">
+        <img class="bonsnack-intro__logo" src="https://m.media-amazon.com/images/X/bxt1/M/mbxt1hRk$6QzUfe._SL64_QL80_FMwebp_.png" alt="" width="72" height="72" fetchpriority="high" />
+        <span>BONSNACK</span>
+      </div>
+    </div>
+    <button class="bonsnack-intro__skip" type="button">Skip intro</button>
+  </div>
+  <script>
+    (function () {
+      function initialize() {
+        var intro = document.querySelector(".bonsnack-intro");
+        var state = window.__bonsnackIntroState;
+        if (!intro || !state || !state.eligible) return;
+
+        var skipButton = intro.querySelector(".bonsnack-intro__skip");
+        var logo = intro.querySelector(".bonsnack-intro__logo");
+        var brand = intro.querySelector(".bonsnack-intro__brand");
+        var main = document.getElementById("main");
+        var inertStates = [];
+        var timeline;
+        var readyTimer;
+        var maxTimer;
+        var started = false;
+        var cleaned = false;
+
+        function restoreInteraction(focusWasOnSkip) {
+          for (var i = 0; i < inertStates.length; i++) {
+            inertStates[i].element.inert = inertStates[i].wasInert;
+          }
+          inertStates = [];
+          document.documentElement.classList.remove("bonsnack-intro-active");
+
+          if (focusWasOnSkip && main) {
+            main.focus({ preventScroll: true });
+            window.requestAnimationFrame(function () {
+              if (!intro.parentNode) main.focus({ preventScroll: true });
+            });
+          }
+        }
+
+        function cleanup(moveFocusToMain) {
+          if (cleaned) return;
+          cleaned = true;
+          var focusWasOnSkip = moveFocusToMain || document.activeElement === skipButton;
+          window.clearTimeout(readyTimer);
+          window.clearTimeout(maxTimer);
+          document.removeEventListener("bonsnack:gsap-ready", onGsapReady);
+          document.removeEventListener("keydown", onKeydown);
+          intro.removeEventListener("click", onOverlayClick);
+          if (logo) logo.removeEventListener("error", onLogoError);
+          if (timeline) timeline.kill();
+          if (intro.parentNode) intro.parentNode.removeChild(intro);
+          restoreInteraction(focusWasOnSkip);
+        }
+
+        function skipBeforeStart() {
+          if (cleaned || started) return;
+          cleanup();
+        }
+
+        function onLogoError() {
+          logo.hidden = true;
+        }
+
+        function onKeydown(event) {
+          if (event.key === "Escape") {
+            event.preventDefault();
+            cleanup();
+          }
+        }
+
+        function onOverlayClick(event) {
+          cleanup(event.target === skipButton || skipButton.contains(event.target));
+        }
+
+        function startIntro() {
+          if (cleaned || started) return;
+          if (!state.ready || !window.gsap || typeof window.gsap.timeline !== "function") {
+            skipBeforeStart();
+            return;
+          }
+
+          started = true;
+          window.clearTimeout(readyTimer);
+          try {
+            var children = document.body.children;
+            for (var i = 0; i < children.length; i++) {
+              var child = children[i];
+              if (child === intro || child.tagName === "SCRIPT") continue;
+              inertStates.push({ element: child, wasInert: child.inert });
+              child.inert = true;
+            }
+
+            if (logo) logo.addEventListener("error", onLogoError, { once: true });
+            if (logo && logo.complete && logo.naturalWidth === 0) onLogoError();
+            intro.addEventListener("click", onOverlayClick);
+            document.addEventListener("keydown", onKeydown);
+            maxTimer = window.setTimeout(cleanup, 3000);
+            document.documentElement.classList.add("bonsnack-intro-active");
+
+            timeline = window.gsap.timeline({ onComplete: cleanup });
+            timeline.fromTo(brand,
+              { autoAlpha: 0, y: 14 },
+              { autoAlpha: 1, y: 0, duration: 0.65, ease: "power3.out" }
+            );
+            timeline.to({}, { duration: 0.35 });
+            timeline.to(brand, { autoAlpha: 0, y: -10, duration: 0.25, ease: "power2.in" });
+            timeline.to(intro, { yPercent: -100, duration: 0.8, ease: "power3.inOut" }, "-=0.05");
+          } catch (error) {
+            console.error("BONSNACK intro could not be initialized.", error);
+            cleanup();
+          }
+        }
+
+        function onGsapReady() {
+          if (state.failed) {
+            skipBeforeStart();
+            return;
+          }
+          if (state.ready) startIntro();
+        }
+
+        document.addEventListener("bonsnack:gsap-ready", onGsapReady);
+        readyTimer = window.setTimeout(skipBeforeStart, 1200);
+        if (state.failed) skipBeforeStart();
+        else if (state.ready) startIntro();
+      }
+
+      if (document.readyState === "loading") {
+        document.addEventListener("DOMContentLoaded", initialize, { once: true });
+      } else {
+        initialize();
+      }
+    }());
+  </script>
   <a class="skip-link" href="#main">Skip to content</a>
   <div class="announcement">
     A BONSNACK discovery experience. Product options, current prices and checkout stay on the
@@ -1264,7 +1496,7 @@
     </nav>
   </header>
 
-  <main id="main">
+  <main id="main" tabindex="-1">
     <section class="hero" aria-labelledby="hero-title">
       <div class="container hero-inner">
         <div class="hero-copy">
@@ -1347,45 +1579,69 @@
         </div>
         <div class="product-grid" aria-label="BONSNACK products">
           <article class="product-card">
-            <a class="product-visual" href="https://www.bonsnack.in/" target="_blank" rel="noopener noreferrer" aria-label="View Paani Puri Chips">
+            <a class="product-visual" href="https://amzn.in/d/0i6HT3By" target="_self" rel="noopener" aria-label="View Paani Puri Chips on Amazon">
               <img class="catalog-product-image" data-product-image="paani-puri-chips" src="" alt="BONSNACK Paani Puri Chips pack" width="768" height="768" loading="lazy" />
             </a>
             <div class="product-info">
               <div class="product-badges"><span class="badge">Featured</span></div>
               <h3>Paani Puri Chips</h3>
-              <a class="link-action store-link" href="https://www.bonsnack.in/" target="_blank" rel="noopener noreferrer">View product ↗</a>
+              <a class="link-action store-link" href="https://amzn.in/d/0i6HT3By" target="_self" rel="noopener">Buy on Amazon</a>
             </div>
           </article>
           <article class="product-card">
-            <a class="product-visual" href="https://www.bonsnack.in/" target="_blank" rel="noopener noreferrer" aria-label="View Peri Peri Ragi Chips">
+            <a class="product-visual" href="https://amzn.in/d/01MrNKpe" target="_self" rel="noopener" aria-label="View Ragi Chips on Amazon">
               <img class="catalog-product-image" data-product-image="peri-peri-ragi-chips" src="" alt="BONSNACK Peri Peri Ragi Chips pack" width="768" height="768" loading="lazy" />
             </a>
             <div class="product-info">
               <div class="product-badges"><span class="badge">Peri Peri</span></div>
               <h3>Ragi Chips</h3>
-              <a class="link-action store-link" href="https://www.bonsnack.in/" target="_blank" rel="noopener noreferrer">View product ↗</a>
+              <a class="link-action store-link" href="https://amzn.in/d/01MrNKpe" target="_self" rel="noopener">Buy on Amazon</a>
             </div>
           </article>
           <article class="product-card">
-            <a class="product-visual" href="https://www.bonsnack.in/" target="_blank" rel="noopener noreferrer" aria-label="View Peri Peri Ragi Sticks">
+            <a class="product-visual" href="https://amzn.in/d/04LNmV5u" target="_self" rel="noopener" aria-label="View Ragi Sticks on Amazon">
               <img class="catalog-product-image" data-product-image="peri-peri-ragi-sticks" src="" alt="BONSNACK Peri Peri Ragi Sticks pack" width="768" height="768" loading="lazy" />
             </a>
             <div class="product-info">
               <div class="product-badges"><span class="badge">Peri Peri</span></div>
               <h3>Ragi Sticks</h3>
-              <a class="link-action store-link" href="https://www.bonsnack.in/" target="_blank" rel="noopener noreferrer">View product ↗</a>
+              <a class="link-action store-link" href="https://amzn.in/d/04LNmV5u" target="_self" rel="noopener">Buy on Amazon</a>
             </div>
           </article>
           <article class="product-card">
-            <a class="product-visual" href="https://www.bonsnack.in/" target="_blank" rel="noopener noreferrer" aria-label="View Broccoli Chips">
+            <a class="product-visual" href="https://amzn.in/d/0djUDu44" target="_self" rel="noopener" aria-label="View Broccoli Chips on Amazon">
               <img class="catalog-product-image" data-product-image="broccoli-chips" src="" alt="BONSNACK Broccoli Chips pack" width="768" height="768" loading="lazy" />
             </a>
             <div class="product-info">
               <div class="product-badges"><span class="badge">BONSNACK</span></div>
               <h3>Broccoli Chips</h3>
-              <a class="link-action store-link" href="https://www.bonsnack.in/" target="_blank" rel="noopener noreferrer">View product ↗</a>
+              <a class="link-action store-link" href="https://amzn.in/d/0djUDu44" target="_self" rel="noopener">Buy on Amazon</a>
             </div>
           </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section gifting" id="gifting">
+      <div class="container">
+        <div class="section-header">
+          <div>
+            <div class="kicker">Gifting</div>
+            <h2>GIVE A LITTLE JOY.</h2>
+          </div>
+        </div>
+
+        <div class="gift-panel">
+          <div class="gift-copy">
+            <h2 style="font-size: clamp(2.3rem, 4vw, 4rem); color: var(--bs-green); letter-spacing: -0.06em;">Find a gift worth sharing.</h2>
+            <p>Explore the hampers currently available on the BONSNACK store. Contents, pricing and delivery details are shown on the live listings.</p>
+            <div class="hero-actions" style="margin-top: 24px;">
+              <a class="primary-btn" href="https://www.bonsnack.in/" target="_blank" rel="noopener noreferrer">Explore live gifting ↗</a>
+            </div>
+          </div>
+          <div class="gift-visual" aria-hidden="true">
+            <div class="gift-box"></div>
+          </div>
         </div>
       </div>
     </section>
@@ -1401,15 +1657,15 @@
         </div>
 
         <div class="featured-layout reveal">
-          <div class="featured-image-wrap">
+          <a class="featured-image-wrap" href="https://amzn.in/d/0i6HT3By" target="_self" rel="noopener" aria-label="View Paani Puri Chips on Amazon">
             <img class="featured-image" data-product-image="paani-puri-chips" src="" alt="BONSNACK Paani Puri Chips product packaging" width="452" height="452" loading="lazy" />
-          </div>
+          </a>
           <div class="featured-copy">
             <span class="badge">Featured product</span>
             <h3>Paani Puri Chips</h3>
             <p>See the current product details, pack options and availability on BONSNACK’s live store.</p>
             <div class="store-note">Prices and stock are shown on the official store so this experience never displays stale or mismatched checkout information.</div>
-            <a class="primary-btn store-link" href="https://www.bonsnack.in/" target="_blank" rel="noopener noreferrer">View on BONSNACK ↗</a>
+            <a class="primary-btn store-link" href="https://amzn.in/d/0i6HT3By" target="_self" rel="noopener">Buy on Amazon</a>
           </div>
         </div>
 
@@ -1472,18 +1728,9 @@
           <article class="portal-card category-card reveal">
             <div class="tag">Shop category</div>
             <div>
-              <h3>Namkeen, Snacks &amp; Biscuits</h3>
+              <h3>Snacks &amp; Chips</h3>
               <p>Browse the current snack catalogue.</p>
               <a class="category-link" href="https://www.bonsnack.in/" target="_blank" rel="noopener noreferrer">Explore snacks ↗</a>
-            </div>
-          </article>
-
-          <article class="portal-card category-card reveal">
-            <div class="tag">Shop category</div>
-            <div>
-              <h3>Health food</h3>
-              <p>See the current health-food selection.</p>
-              <a class="category-link" href="https://www.bonsnack.in/" target="_blank" rel="noopener noreferrer">Explore health food ↗</a>
             </div>
           </article>
 
@@ -1549,30 +1796,6 @@
             <h3>Buy securely</h3>
             <p>Your order and payment are handled by BONSNACK’s existing checkout.</p>
           </article>
-        </div>
-      </div>
-    </section>
-
-    <section class="section gifting" id="gifting">
-      <div class="container">
-        <div class="section-header">
-          <div>
-            <div class="kicker">Gifting</div>
-            <h2>GIVE A LITTLE JOY.</h2>
-          </div>
-        </div>
-
-        <div class="gift-panel">
-          <div class="gift-copy">
-            <h2 style="font-size: clamp(2.3rem, 4vw, 4rem); color: var(--bs-green); letter-spacing: -0.06em;">Find a gift worth sharing.</h2>
-            <p>Explore the hampers currently available on the BONSNACK store. Contents, pricing and delivery details are shown on the live listings.</p>
-            <div class="hero-actions" style="margin-top: 24px;">
-              <a class="primary-btn" href="https://www.bonsnack.in/" target="_blank" rel="noopener noreferrer">Explore live gifting ↗</a>
-            </div>
-          </div>
-          <div class="gift-visual" aria-hidden="true">
-            <div class="gift-box"></div>
-          </div>
         </div>
       </div>
     </section>
