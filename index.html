@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>BONSNACK | Crunch Cosmos</title>
-  <meta name="description" content="Discover BONSNACK snacks, health food and gifting. View current product details and complete your purchase on the official store." />
+  <meta name="description" content="Discover BONSNACK snacks, explore gifting and bulk enquiries, and purchase products through Amazon." />
   <meta name="theme-color" content="#0f3b32" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -843,6 +843,119 @@
       box-shadow: 0 42px 0 0 rgba(15,59,50,0.88);
     }
 
+    .enquiry-layout {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 22px;
+      align-items: start;
+    }
+    .enquiry-card {
+      background: rgba(255,255,255,0.68);
+      border: 1px solid rgba(15,59,50,0.1);
+      border-radius: 24px;
+      padding: clamp(22px, 3vw, 34px);
+      box-shadow: 0 10px 24px rgba(29,47,38,0.05);
+    }
+    .enquiry-card h3 {
+      color: var(--bs-green);
+      font-size: 1.45rem;
+      margin: 0 0 10px;
+    }
+    .enquiry-card > p {
+      color: rgba(20,20,20,0.74);
+      line-height: 1.7;
+    }
+    .enquiry-status {
+      border-left: 4px solid var(--bs-mustard);
+      background: rgba(233,162,59,0.12);
+      border-radius: 0 12px 12px 0;
+      padding: 14px 16px;
+      margin: 18px 0;
+      color: var(--bs-green);
+    }
+    .enquiry-status p { margin: 0; }
+    .enquiry-status p + p { margin-top: 6px; }
+    .enquiry-fieldset {
+      border: 0;
+      margin: 0;
+      padding: 0;
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 16px;
+    }
+    .enquiry-field {
+      display: grid;
+      gap: 7px;
+      min-width: 0;
+      color: var(--bs-green);
+      font-size: 0.9rem;
+      font-weight: 700;
+    }
+    .enquiry-field--full { grid-column: 1 / -1; }
+    .enquiry-fieldset legend {
+      grid-column: 1 / -1;
+      color: var(--bs-green);
+      font-weight: 800;
+      margin-bottom: 2px;
+    }
+    .enquiry-field input, .enquiry-field select, .enquiry-field textarea {
+      width: 100%;
+      min-height: 48px;
+      border: 1px solid rgba(15,59,50,0.24);
+      border-radius: 12px;
+      padding: 11px 12px;
+      background: var(--bs-white);
+      color: var(--bs-ink);
+      font: inherit;
+      font-weight: 400;
+    }
+    .enquiry-field textarea { min-height: 110px; resize: vertical; }
+    .enquiry-field small {
+      color: rgba(20,20,20,0.68);
+      font-size: 0.8rem;
+      font-weight: 400;
+      line-height: 1.5;
+    }
+    .enquiry-field input:focus-visible,
+    .enquiry-field select:focus-visible,
+    .enquiry-field textarea:focus-visible {
+      outline: 3px solid rgba(233,162,59,0.78);
+      outline-offset: 2px;
+    }
+    .enquiry-field input:disabled,
+    .enquiry-field select:disabled,
+    .enquiry-field textarea:disabled {
+      cursor: not-allowed;
+      background: #f0eee8;
+    }
+    .enquiry-call {
+      display: inline-flex;
+      margin-top: 18px;
+      font-weight: 800;
+      color: var(--bs-green);
+      text-decoration: underline;
+      text-underline-offset: 3px;
+    }
+    .privacy-note {
+      margin: 14px 0 0;
+      color: rgba(20,20,20,0.72);
+      font-size: 0.88rem;
+      line-height: 1.6;
+    }
+    .contact-panel {
+      padding: clamp(24px, 4vw, 42px);
+      border-radius: 26px;
+      background: var(--bs-green);
+      color: var(--bs-white);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 20px;
+    }
+    .contact-panel h2 { margin: 0; font-size: clamp(1.8rem, 3vw, 2.8rem); }
+    .contact-panel p { margin: 8px 0 0; color: rgba(255,255,255,0.8); }
+    .contact-panel a { color: var(--bs-white); font-weight: 800; text-decoration: underline; text-underline-offset: 4px; }
     .testimonial {
       background: rgba(255,255,255,0.42);
       border: 1px solid rgba(15,59,50,0.08);
@@ -1177,6 +1290,7 @@
       .hero-art { top: 92px; height: min(56vh, 500px); min-height: 320px; }
       .hero-product-step { min-height: 28svh; }
       .story-wrap, .gift-panel { grid-template-columns: 1fr; }
+      .enquiry-layout { grid-template-columns: 1fr; }
       .featured-layout { grid-template-columns: minmax(220px, 0.9fr) minmax(240px, 1.1fr); }
     }
 
@@ -1206,6 +1320,8 @@
       .product-card h3 { font-size: 1.05rem; }
       .product-grid .badge { padding: 0.35rem 0.5rem; font-size: 0.58rem; }
       .portal-grid, .why-wrap, .reviews-wrap, .footer-grid { grid-template-columns: 1fr; }
+      .enquiry-fieldset { grid-template-columns: 1fr; }
+      .enquiry-field--full { grid-column: auto; }
       .featured-layout { grid-template-columns: 1fr; padding: 18px; }
       .hero-gallery { grid-template-columns: 1fr; gap: 0; }
       .hero-art {
@@ -1466,8 +1582,8 @@
   </script>
   <a class="skip-link" href="#main">Skip to content</a>
   <div class="announcement">
-    A BONSNACK discovery experience. Product options, current prices and checkout stay on the
-    <a href="https://www.bonsnack.in/" target="_blank" rel="noopener noreferrer">official store</a>.
+    Explore BONSNACK products here and continue to Amazon for purchases.
+    <a href="#shop">Explore snacks</a>.
   </div>
   <header class="site-header">
     <div class="container nav-wrap">
@@ -1480,11 +1596,12 @@
         <a href="#collections">Collections</a>
         <a href="#story">Our Story</a>
         <a href="#gifting">Gifting</a>
+        <a href="#contact">Contact</a>
         <a href="#reviews">Reviews</a>
       </nav>
       <div class="header-actions">
         <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="mobile-nav" aria-label="Open navigation">☰</button>
-        <a href="https://www.bonsnack.in/" class="primary-btn store-link" target="_blank" rel="noopener noreferrer">Visit store ↗</a>
+        <a href="#shop" class="primary-btn">Shop snacks</a>
       </div>
     </div>
     <nav class="mobile-nav" id="mobile-nav" aria-label="Mobile navigation">
@@ -1492,7 +1609,9 @@
       <a href="#collections">Shop categories</a>
       <a href="#story">About this experience</a>
       <a href="#gifting">Gifting</a>
-      <a href="https://www.bonsnack.in/" target="_blank" rel="noopener noreferrer">Official store ↗</a>
+        <a href="#bulk">Bulk orders</a>
+        <a href="#contact">Contact</a>
+        <a href="#shop">Shop snacks</a>
     </nav>
   </header>
 
@@ -1528,7 +1647,7 @@
                 <span class="badge">Featured product</span>
                 <h2>Paani Puri Chips</h2>
                 <p>A playful, chatpata crunch inspired by India’s favourite street snack.</p>
-                <a class="primary-btn store-link" href="https://www.bonsnack.in/" target="_blank" rel="noopener noreferrer">View product ↗</a>
+                <a class="primary-btn store-link" href="https://amzn.in/d/0i6HT3By" target="_self" rel="noopener">Buy on Amazon</a>
               </div>
             </article>
             <article class="hero-product-step">
@@ -1536,7 +1655,7 @@
                 <span class="badge">Peri Peri</span>
                 <h2>Ragi Chips</h2>
                 <p>A bold, savoury crunch with a lively peri peri-inspired flavour.</p>
-                <a class="primary-btn store-link" href="https://www.bonsnack.in/" target="_blank" rel="noopener noreferrer">View product ↗</a>
+                <a class="primary-btn store-link" href="https://amzn.in/d/01MrNKpe" target="_self" rel="noopener">Buy on Amazon</a>
               </div>
             </article>
             <article class="hero-product-step">
@@ -1544,7 +1663,7 @@
                 <span class="badge">Peri Peri</span>
                 <h2>Ragi Sticks</h2>
                 <p>Crispy ragi sticks made for little snack breaks and big cravings.</p>
-                <a class="primary-btn store-link" href="https://www.bonsnack.in/" target="_blank" rel="noopener noreferrer">View product ↗</a>
+                <a class="primary-btn store-link" href="https://amzn.in/d/04LNmV5u" target="_self" rel="noopener">Buy on Amazon</a>
               </div>
             </article>
             <article class="hero-product-step">
@@ -1552,7 +1671,7 @@
                 <span class="badge">BONSNACK</span>
                 <h2>Broccoli Chips</h2>
                 <p>A light, savoury crunch with a fresh twist.</p>
-                <a class="primary-btn store-link" href="https://www.bonsnack.in/" target="_blank" rel="noopener noreferrer">View product ↗</a>
+                <a class="primary-btn store-link" href="https://amzn.in/d/0djUDu44" target="_self" rel="noopener">Buy on Amazon</a>
               </div>
             </article>
           </div>
@@ -1575,7 +1694,7 @@
             <div class="kicker">The BONSNACK range</div>
             <h2>MEET EVERY CRUNCH.</h2>
           </div>
-          <a href="https://www.bonsnack.in/" target="_blank" rel="noopener noreferrer">View the full catalogue ↗</a>
+          <a href="#shop">Browse snacks</a>
         </div>
         <div class="product-grid" aria-label="BONSNACK products">
           <article class="product-card">
@@ -1627,16 +1746,16 @@
         <div class="section-header">
           <div>
             <div class="kicker">Gifting</div>
-            <h2>GIVE A LITTLE JOY.</h2>
+            <h2>Gifting enquiries</h2>
           </div>
         </div>
 
         <div class="gift-panel">
           <div class="gift-copy">
-            <h2 style="font-size: clamp(2.3rem, 4vw, 4rem); color: var(--bs-green); letter-spacing: -0.06em;">Find a gift worth sharing.</h2>
-            <p>Explore the hampers currently available on the BONSNACK store. Contents, pricing and delivery details are shown on the live listings.</p>
+            <h2 style="font-size: clamp(2.3rem, 4vw, 4rem); color: var(--bs-green); letter-spacing: -0.06em;">Thoughtful gifting, with Bonsnack.</h2>
+            <p>Tell us about your occasion, quantity and preferred date. Get in touch to discuss gifting options.</p>
             <div class="hero-actions" style="margin-top: 24px;">
-              <a class="primary-btn" href="https://www.bonsnack.in/" target="_blank" rel="noopener noreferrer">Explore live gifting ↗</a>
+              <a class="primary-btn" href="gifting-enquiry.html">Enquire about gifting</a>
             </div>
           </div>
           <div class="gift-visual" aria-hidden="true">
@@ -1646,14 +1765,31 @@
       </div>
     </section>
 
+    <section class="section" id="bulk">
+      <div class="container">
+        <div class="section-header">
+          <div>
+            <div class="kicker">Bulk orders</div>
+            <h2>Let’s talk bulk orders.</h2>
+            <p>Share your requirements for corporate gifting, events or larger orders.</p>
+          </div>
+          <a class="primary-btn" href="bulk-order-enquiry.html">Bulk Order Enquiry</a>
+        </div>
+        <div class="enquiry-card">
+          <p>Share your requirements for corporate gifting, events or larger orders by phone.</p>
+          <a class="enquiry-call" href="tel:+919481855894">Call +91 94818 55894</a>
+        </div>
+      </div>
+    </section>
+
     <section class="section" id="featured">
       <div class="container">
         <div class="section-header">
           <div>
-            <div class="kicker">Featured on the live store</div>
+            <div class="kicker">Featured product</div>
             <h2>YOUR NEXT FAVOURITE.</h2>
           </div>
-          <a href="https://www.bonsnack.in/" target="_blank" rel="noopener noreferrer">View the full catalogue ↗</a>
+          <a href="#shop">Browse snacks</a>
         </div>
 
         <div class="featured-layout reveal">
@@ -1663,8 +1799,8 @@
           <div class="featured-copy">
             <span class="badge">Featured product</span>
             <h3>Paani Puri Chips</h3>
-            <p>See the current product details, pack options and availability on BONSNACK’s live store.</p>
-            <div class="store-note">Prices and stock are shown on the official store so this experience never displays stale or mismatched checkout information.</div>
+            <p>See current product details and availability on the Amazon product listing.</p>
+            <div class="store-note">Prices and stock are shown on Amazon so this page does not display stale or mismatched checkout information.</div>
             <a class="primary-btn store-link" href="https://amzn.in/d/0i6HT3By" target="_self" rel="noopener">Buy on Amazon</a>
           </div>
         </div>
@@ -1683,7 +1819,7 @@
                 <span class="badge">Featured product</span>
                 <h3>Paani Puri Chips</h3>
                 <p>A playful, chatpata crunch inspired by India’s favourite street snack.</p>
-                <a class="primary-btn store-link" href="https://www.bonsnack.in/" target="_blank" rel="noopener noreferrer">View product ↗</a>
+                <a class="primary-btn store-link" href="https://amzn.in/d/0i6HT3By" target="_self" rel="noopener">Buy on Amazon</a>
               </div>
             </article>
             <article class="product-scroll-step">
@@ -1691,7 +1827,7 @@
                 <span class="badge">Peri Peri</span>
                 <h3>Ragi Chips</h3>
                 <p>A bold, savoury crunch with a lively peri peri-inspired flavour.</p>
-                <a class="primary-btn store-link" href="https://www.bonsnack.in/" target="_blank" rel="noopener noreferrer">View product ↗</a>
+                <a class="primary-btn store-link" href="https://amzn.in/d/01MrNKpe" target="_self" rel="noopener">Buy on Amazon</a>
               </div>
             </article>
             <article class="product-scroll-step">
@@ -1699,7 +1835,7 @@
                 <span class="badge">Peri Peri</span>
                 <h3>Ragi Sticks</h3>
                 <p>Crispy ragi sticks made for little snack breaks and big cravings.</p>
-                <a class="primary-btn store-link" href="https://www.bonsnack.in/" target="_blank" rel="noopener noreferrer">View product ↗</a>
+                <a class="primary-btn store-link" href="https://amzn.in/d/04LNmV5u" target="_self" rel="noopener">Buy on Amazon</a>
               </div>
             </article>
             <article class="product-scroll-step">
@@ -1707,7 +1843,7 @@
                 <span class="badge">BONSNACK</span>
                 <h3>Broccoli Chips</h3>
                 <p>A light, savoury crunch with a fresh twist.</p>
-                <a class="primary-btn store-link" href="https://www.bonsnack.in/" target="_blank" rel="noopener noreferrer">View product ↗</a>
+                <a class="primary-btn store-link" href="https://amzn.in/d/0djUDu44" target="_self" rel="noopener">Buy on Amazon</a>
               </div>
             </article>
           </div>
@@ -1729,8 +1865,8 @@
             <div class="tag">Shop category</div>
             <div>
               <h3>Snacks &amp; Chips</h3>
-              <p>Browse the current snack catalogue.</p>
-              <a class="category-link" href="https://www.bonsnack.in/" target="_blank" rel="noopener noreferrer">Explore snacks ↗</a>
+              <p>Browse the BONSNACK snack range.</p>
+              <a class="category-link" href="#shop">Explore snacks</a>
             </div>
           </article>
 
@@ -1738,8 +1874,8 @@
             <div class="tag">Shop category</div>
             <div>
               <h3>Gift Hampers</h3>
-              <p>Find available hampers and seasonal gifting on the live store.</p>
-              <a class="category-link" href="https://www.bonsnack.in/" target="_blank" rel="noopener noreferrer">Explore gifting ↗</a>
+              <p>Discuss gifting options directly with BONSNACK.</p>
+              <a class="category-link" href="#gifting">Explore gifting</a>
             </div>
           </article>
         </div>
@@ -1751,24 +1887,24 @@
         <div class="story-copy">
           <div class="kicker">Made to explore</div>
           <h2 style="font-size: clamp(2.5rem, 4vw, 4rem); color: var(--bs-green); letter-spacing: -0.06em;">SMALL BITE. BIG EXPERIENCE.</h2>
-          <p>Start with the flavours and categories that catch your eye. When you’re ready to compare ingredients, options or prices, continue to BONSNACK’s live product pages for the latest details.</p>
+          <p>Start with the flavours and categories that catch your eye. When you’re ready to compare product details or prices, continue to the relevant Amazon listing.</p>
           <div class="hero-actions" style="margin-top: 24px;">
-            <a class="primary-btn" href="https://www.bonsnack.in/" target="_blank" rel="noopener noreferrer">Discover the live catalogue ↗</a>
+            <a class="primary-btn" href="#shop">Explore snacks</a>
           </div>
         </div>
 
         <div class="fact-grid">
           <div class="fact-card reveal">
             <strong>Real products</strong>
-            <p>Product imagery and names are drawn from BONSNACK’s live storefront.</p>
+            <p>Product imagery and names are presented here for discovery.</p>
           </div>
           <div class="fact-card reveal">
             <strong>Current details</strong>
-            <p>Check the official listing for up-to-date prices, options and stock.</p>
+            <p>Check the Amazon product listing for current options and availability.</p>
           </div>
           <div class="fact-card reveal">
             <strong>Real checkout</strong>
-            <p>Purchases continue on the existing BONSNACK store, not a simulated cart.</p>
+            <p>Product purchases continue on Amazon, not through a local checkout.</p>
           </div>
         </div>
       </div>
@@ -1786,7 +1922,7 @@
         <div class="why-wrap fact-grid">
           <article class="why-card">
             <h3>See the facts</h3>
-            <p>Use the live product listing to review its current description and options.</p>
+            <p>Use the Amazon product listing to review its current description and options.</p>
           </article>
           <article class="why-card">
             <h3>Check the price</h3>
@@ -1794,7 +1930,7 @@
           </article>
           <article class="why-card">
             <h3>Buy securely</h3>
-            <p>Your order and payment are handled by BONSNACK’s existing checkout.</p>
+            <p>Your product order and payment are handled by Amazon.</p>
           </article>
         </div>
       </div>
@@ -1810,17 +1946,32 @@
         </div>
 
         <div class="review-empty">
-          <p>Customer feedback belongs in the story, but we won’t invent or re-attribute reviews here. Read the current reviews on BONSNACK’s official store.</p>
-          <a class="link-action" href="https://www.bonsnack.in/" target="_blank" rel="noopener noreferrer">Visit the official store ↗</a>
+          <p>Customer feedback belongs in the story, but we won’t invent or re-attribute reviews here. Browse the BONSNACK product range below.</p>
+          <a class="link-action" href="#shop">Explore snacks</a>
           </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="contact">
+      <div class="container">
+        <div class="contact-panel">
+          <div>
+            <h2>Contact us</h2>
+            <p>For gifting, bulk-order and other enquiries, please call BONSNACK.</p>
+          </div>
+          <a href="tel:+919481855894">+91 94818 55894</a>
         </div>
       </div>
     </section>
 
     <section class="cta-wrap">
       <div class="container cta-inner">
-        <h2>YOUR NEXT FAVOURITE IS JUST A CRUNCH AWAY.</h2>
-        <a href="https://www.bonsnack.in/" class="primary-btn store-link" target="_blank" rel="noopener noreferrer">Shop all products ↗</a>
+        <h2>Planning a gift or a bulk order?</h2>
+        <div class="hero-actions">
+          <a href="gifting-enquiry.html" class="primary-btn">Gifting Enquiry</a>
+          <a href="bulk-order-enquiry.html" class="primary-btn">Bulk Order Enquiry</a>
+        </div>
       </div>
     </section>
   </main>
@@ -1832,19 +1983,19 @@
           <img class="brand-logo" src="https://m.media-amazon.com/images/X/bxt1/M/mbxt1hRk$6QzUfe._SL64_QL80_FMwebp_.png" alt="" width="42" height="42" loading="lazy" />
           BONSNACK
         </a>
-        <p>A visual discovery layer for BONSNACK. Product selection, current information and checkout remain on the live store.</p>
+        <p>Explore BONSNACK products, discuss gifting and bulk enquiries, and purchase through Amazon listings.</p>
         <div class="footer-socials">
-          <a href="tel:+919510527235">+91 95105 27235</a>
-          <a href="https://api.whatsapp.com/send?phone=919510527235" target="_blank" rel="noopener noreferrer">WhatsApp ↗</a>
+          <a href="tel:+919481855894">+91 94818 55894</a>
         </div>
       </div>
 
       <div class="footer-column">
         <h4>Explore</h4>
         <ul>
-          <li><a href="https://www.bonsnack.in/" target="_blank" rel="noopener noreferrer">Shop All ↗</a></li>
+          <li><a href="#shop">Shop all</a></li>
           <li><a href="#collections">Categories</a></li>
           <li><a href="#gifting">Gifting</a></li>
+          <li><a href="#bulk">Bulk orders</a></li>
         </ul>
       </div>
 
@@ -1860,22 +2011,21 @@
       <div class="footer-column">
         <h4>Customer care</h4>
         <ul>
-          <li><a href="https://www.bonsnack.in/" target="_blank" rel="noopener noreferrer">Store policies &amp; delivery ↗</a></li>
-          <li><a href="tel:+919510527235">Talk to us</a></li>
+          <li><a href="#contact">Contact us</a></li>
         </ul>
       </div>
 
       <div class="footer-column">
         <h4>Legal</h4>
         <ul>
-          <li><a href="https://www.bonsnack.in/" target="_blank" rel="noopener noreferrer">Store policies &amp; payment info ↗</a></li>
+          <li><a href="privacy-terms.html">Privacy &amp; Terms</a></li>
         </ul>
       </div>
     </div>
 
     <div class="container legal">
       <span>© <span id="year"></span> BONSNACK</span>
-      <span>Store and checkout provided by the official BONSNACK website.</span>
+      <span>Product purchases are completed through Amazon.</span>
     </div>
   </footer>
   <script>
